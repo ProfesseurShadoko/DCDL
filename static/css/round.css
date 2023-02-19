@@ -1,0 +1,103 @@
+@import url("/static/css/style.css");
+
+#timer {
+    --border-color: var(--color);
+    --border-color2 : var(--bg);
+    --inside-color: var(--bg);
+
+    --border-size: 1vh;
+    --timer-size: 20vh;
+
+    position: relative;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+
+    z-index: 1;
+}
+
+/*GRID*/
+
+.screen {
+    display:grid;
+
+    align-content: space-around;
+
+    grid-template-areas: 
+    '1 1 1 1 1 1 1 1 1 1'
+    '2 2 2 2 2 2 2 2 2 2'
+    '3 3 3 3 3 3 3 3 3 3'
+    '4 4 4 4 4 4 4 4 4 4'
+    ;
+}
+
+.card-container, #target {
+    background-color: var(--bg);
+    border-radius: 5px;
+    border: 2px solid var(--text-color);
+    color:var(--text-color);
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.card-container:hover, #target:hover {
+    background-color: var(--text-color);
+    border-radius: 5px;
+    color: var(--bg);
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.top-row {
+    grid-area: 1;
+    grid-column: 4 / 8; /*dernier exclu !*/
+    height: 40vh;
+}
+
+.second-row {
+    grid-area: 2;
+    grid-column: 5/7;
+    text-align: center;
+    vertical-align: center;
+    margin: 10%;
+    height: min(7vw,20vh);
+}
+
+.second-row .my-card {
+    width: 100%;
+}
+
+.card-container {
+    grid-area: 3;
+    text-align: center;
+    vertical-align: center;
+    margin: 10%;
+    width:min(7vw,20vh);
+    height: min(7vw,20vh);
+}
+
+#button-1 {
+    grid-area: 4;
+    grid-column: 3/5;
+    vertical-align: center;
+}
+
+#button-2 {
+    grid-area: 4;
+    grid-column: 7/9;
+
+    vertical-align: center;
+}
+
+
+
+.my-card {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: min(5vh,5vw);
+}
+
+.btn {
+    margin-top: 50px;
+}
+

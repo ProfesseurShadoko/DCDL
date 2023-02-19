@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic grid</title>
+
+    <script src="/static/js/jquery.min.js" type="text/javascript"></script>
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/timer/timer.css">
+    <link rel="stylesheet" href="/static/css/round.css">
+
+    <style>
+    </style>
+</head>
+
+<!--
+    On veux un grid 10 * 4 puisque l'on veut :
+        - au dessus un chrono (première ligne)
+        - le nombre target
+        - les chiffres / les lettres
+        - les bouttons de resultat / skip / etc
+-->
+<body>
+    <div class="screen">
+        <div class="top-row">
+            <div id="timer" class="timer-border border-sm">
+                <div class="timer-circle">
+                    <div id="timer-value">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div  id="target" class="second-row">
+            <div class="my-card">###</div>
+        </div>
+
+        <div id="card-1" class="card-container">
+            <div class="my-card">#</div>
+        </div>
+        <div id="card-2" class="card-container">
+            <div class="my-card">#</div>
+        </div>
+        <div id="card-3" class="card-container">
+            <div class="my-card">#</div>
+        </div>
+        <div id="card-4" class="card-container">
+            <div class="my-card">#</div>
+        </div>
+        <div id="card-5" class="card-container ">
+            <div class="my-card">#</div>
+        </div>
+        <div id="card-6" class="card-container">
+            <div class="my-card">#</div>
+        </div>
+        <div id="card-7" class="card-container">
+            <div class="my-card">#</div>
+        </div>
+        <div id="card-8" class="card-container">
+            <div class="my-card">#</div>
+        </div>
+        <div id="card-9" class="card-container">
+            <div class="my-card">#</div>
+        </div>
+        <div id="card-10" class="card-container">
+            <div class="my-card">#</div>
+        </div>
+
+        <a id="button-1" class="btn btn-outline-dark btn-lg" onClick = "displaySolution()">
+            SOLUTION
+        </a>
+
+        <a id="button-2" href="/" class="btn btn-outline-dark btn-lg">
+            SUIVANT
+        </a>
+
+        <!--
+            HERE IS THE SOLUTION MODAL
+        -->
+        <div id="myModal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 id="solution-title" class="modal-title">DEFAULT</h5>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onClick=hideSolution() style="position:relative; margin:20px;">OK</button> 
+                    </div>
+                    <div id="modal-content" class="modal-body">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script src="/static/timer/timer.js" type="text/javascript"></script>
+    <script src="/static/js/round.js" type="text/javascript"></script>
+
+    <script>
+        //change here what should be displayed !
+        const target="{{round.target|safe}}";
+        const cards_char = {{round.cards_to_js()|safe}};
+        const timeout = {{round.timeout}}; //s
+        const time = {{round.time}};
+        const solution = "{{round.__str__().replace('\n','&')|safe}}"
+    </script>
+
+    <script>
+        const ms = timeout*1000;
+        setTimerDisplay(time);
+
+        findCards(cards_char);
+        hideCards();
+        writeCards();
+
+        function showAll() {
+            for (i = 0; i<cards.length; i++) {
+                card = getCard(i);
+                setTimeout(n => show(getCard(n)),i*ms,i);
+            }
+    
+            if (target!="") {
+                setTimeout(function() {show(target_div);},cards.length*ms);
+            }
+
+           setTimeout(function() {startTimer(time);},cards.length*ms);
+        }
+
+        function onComplete() {
+            console.log("Time is up !");
+            $(".timer-circle").css("background-color","var(--red)");
+            $("#timer-value").css("color","white");
+
+            console.log("calling alarm trigger");
+            triggerAlarm(3);
+            console.log("alarm called");
+        }
+
+        function displaySolution() {
+            console.log(solution);
+            parsed = solution.split("&");
+            $("#solution-title").html(parsed[0]);
+            parsed = parsed.slice(1);
+            $("#modal-content").html("<p>"+parsed.join("</p><p>")+"</p>");
+            $('#myModal').modal('show');
+        }
+
+        function hideSolution() {
+            $('#myModal').modal('hide');
+        }
+
+        setTimeout(showAll,2000);
+        
+        
+    </script>
+</body>
+</html>

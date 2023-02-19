@@ -1,0 +1,147 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js" type="text/javascript"></script>
+    
+
+
+    <style>
+
+        #timer {
+            --border-color: rgb(109, 147, 212);
+            --border-color2 : rgb(
+                calc(var(--bg-brightness) - 10),
+                calc(var(--bg-brightness) - 10),
+                calc(var(--bg-brightness) - 10)
+            );
+            --inside-color: var(--bg);
+
+            --border-size: 4px;
+            --timer-size: 100px;
+            
+
+            --progress: 0.2;
+
+        }
+
+        body {
+            --bg-brightness: 44;
+            --bg: rgb(var(--bg-brightness),var(--bg-brightness),var(--bg-brightness));
+            background-color: var(--bg);
+        }        
+
+        .timer-circle {
+            background-color: var(--inside-color);
+            width: calc(var(--timer-size) - 2*var(--border-size));
+            height: calc(var(--timer-size) - 2*var(--border-size));
+            border-radius: 100%;
+
+            z-index: 1;
+
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+        }
+
+        .timer-border {
+            position: relative;
+            height: var(--timer-size);
+            width: var(--timer-size);
+            z-index:-1;
+            border-radius: 100%;
+            
+            background-color: var(--border-color);
+        }
+
+        .border-sm {
+            
+            background-image: 
+            linear-gradient(90deg, var(--border-color2) 50%, transparent 50%),
+            linear-gradient(calc( (90deg - var(--progress)*360deg) * (-1)), var(--border-color2) 50%, transparent 50%);
+        }
+
+        .border-bg {
+            background-color: var(--border-color2);
+            background-image: 
+            linear-gradient(calc(90deg + var(--progress)*360deg), var(--border-color) 50%, transparent 50%),
+            linear-gradient(-90deg, var(--border-color) 50%, transparent 50%);
+        }
+
+        #timer-value {
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+            color: var(--border-color);
+            font-size:calc(var(--timer-size) / 1.7);
+            font-weight: 200;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="timer" class="timer-border border-sm">
+        <div class="timer-circle">
+            <div id="timer-value">
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function setTimerProgress(progress) {
+            progress=1-progress;
+            $("#timer").removeClass("border-bg").removeClass("border-sm");
+            if (progress<0.5) {
+                $("#timer").addClass("border-sm");
+            } else {
+                $("#timer").addClass("border-bg");
+            }
+
+            $("#timer").attr("style","--progress:"+progress);
+        }
+        setTimerProgress(0);
+
+        function onComplete() {
+            console.log("done !");
+        }
+
+        function starTimer(seconds) {
+            var time = seconds;
+            const deltatime=0.1;
+            var over = false;
+            
+            function updateTimer() {
+                if (!over) {
+                    time = time-deltatime;
+                    if (time<0) {
+                        time=0;
+                        over=true;
+                        onComplete();
+                    }
+                    setTimerProgress(1-time/seconds);
+                    $("#timer-value").html(Math.ceil(time));
+                }
+                
+            }
+
+            setInterval(updateTimer,1000*deltatime);
+        }
+
+        starTimer(20);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+
+
+
+
+<script src="../static/js/jquery.min.js" type="text/javascript"></script>
+
+<script src="../static/timer/dist/jquery.countdown360.min.js"></script>
+<body style="background-color:black;">
+<div id="countdown"></div>
+<body>
+
+<script>
+    var countdown = $("#countdown").countdown360({
+        radius      : 60,
+        seconds     : 90,
+        strokeStyle : "#FFFFFF", //la grosse bande sur le bord
+        strokeWidth : 2,
+        fillStyle : "#000B4F",
+        fontColor   :'#FFFFFF',
+        autostart   :false,
+        label: ["",""],
+        smooth:true,
+        onComplete  :function () { console.log('done') }
+    });
+
+    countdown.start();
+</script>

@@ -1,0 +1,62 @@
+
+#timer {
+    --border-color: rgb(109, 147, 212);
+    --border-color2 : rgb(30,30,30);
+    --inside-color: rgb(40,40,40);
+
+    --border-size: 4px;
+    --timer-size: 100px;
+    
+    --progress: 0.2;
+
+}
+      
+
+.timer-circle {
+    background-color: var(--inside-color);
+    width: calc(var(--timer-size) - 2*var(--border-size));
+    height: calc(var(--timer-size) - 2*var(--border-size));
+    border-radius: 100%;
+
+    z-index: 1;
+
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+.timer-border {
+    position: relative;
+    height: var(--timer-size);
+    width: var(--timer-size);
+    z-index:-1;
+    border-radius: 100%;
+    
+    background-color: var(--border-color);
+}
+
+.border-sm {
+    
+    background-image: 
+    linear-gradient(90deg, var(--border-color2) 50%, transparent 50%),
+    linear-gradient(calc( (90deg - var(--progress)*360deg) * (-1)), var(--border-color2) 50%, transparent 50%);
+}
+
+.border-bg {
+    background-color: var(--border-color2);
+    background-image: 
+    linear-gradient(calc(90deg + var(--progress)*360deg), var(--border-color) 50%, transparent 50%),
+    linear-gradient(-90deg, var(--border-color) 50%, transparent 50%);
+}
+
+#timer-value {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    color: var(--border-color);
+    font-size:calc(var(--timer-size) / 1.7);
+    font-weight: 200;
+    font-family:Arial, Helvetica, sans-serif;
+}

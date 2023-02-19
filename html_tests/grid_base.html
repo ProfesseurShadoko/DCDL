@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic grid</title>
+
+    <script src="../static/js/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../static/timer/timer.css">
+    
+    <style>
+
+        body {
+            --bg: rgb(56, 56, 58);
+            --color: white;
+            --text-color: black;
+            background-color: var(--bg);
+        }
+
+        #timer {
+            --border-color: var(--color);
+            --border-color2 : var(--bg);
+            --inside-color: var(--bg);
+        
+            --border-size: 1vh;
+            --timer-size: 20vh;
+
+            position: relative;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+
+            z-index: 1;
+        }
+
+        .screen {
+            display:grid;
+
+            align-content: space-around;
+
+            grid-template-areas: 
+            '1 1 1 1 1 1 1 1 1 1'
+            '2 2 2 2 2 2 2 2 2 2'
+            '3 3 3 3 3 3 3 3 3 3'
+            '4 4 4 4 4 4 4 4 4 4'
+            ;
+        }
+
+        .card-container, #target {
+            background-color: var(--color);
+            border-radius: 5px;
+        }
+
+        .top-row {
+            grid-area: 1;
+            grid-column: 4 / 8; /*dernier exclu !*/
+            height: 40vh;
+        }
+
+        .second-row {
+            grid-area: 2;
+            grid-column: 5/7;
+            text-align: center;
+            vertical-align: center;
+            margin: 10%;
+            height: min(7vw,20vh);
+        }
+
+        .second-row .card {
+            width: 100%;
+        }
+
+        .card-container {
+            grid-area: 3;
+            text-align: center;
+            vertical-align: center;
+            margin: 10%;
+            width:min(7vw,20vh);
+            height: min(7vw,20vh);
+        }
+
+        .bottom-row {
+            grid-area: 4;
+        }
+
+        .card {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-size: min(5vh,5vw);
+            color: var(--text-color);
+        }
+
+
+
+    </style>
+</head>
+
+<!--
+    On veux un grid 10 * 4 puisque l'on veut :
+        - au dessus un chrono (première ligne)
+        - le nombre target
+        - les chiffres / les lettres
+        - les bouttons de resultat / skip / etc
+-->
+<body>
+    
+
+    <div class="screen">
+        <div class="top-row">
+            <div id="timer" class="timer-border border-sm">
+                <div class="timer-circle">
+                    <div id="timer-value">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div  id="target" class="second-row">
+            <div class="card">978</div>
+        </div>
+        <div id="card-1" class="card-container">
+            <div class="card">A</div>
+        </div>
+        <div id="card-2" class="card-container">
+            <div class="card">B</div>
+        </div>
+        <div id="card-3" class="card-container">
+            <div class="card">D</div>
+        </div>
+        <div id="card-4" class="card-container">
+            <div class="card">E</div>
+        </div>
+        <div id="card-5" class="card-container ">
+            <div class="card">F</div>
+        </div>
+        <div id="card-6" class="card-container">
+            <div class="card">G</div>
+        </div>
+        <div id="card-7" class="card-container">
+            <div class="card">H</div>
+        </div>
+        <div id="card-8" class="card-container">
+            <div class="card">I</div>
+        </div>
+        <div id="card-9" class="card-container">
+            <div class="card">J</div>
+        </div>
+        <div id="card-10" class="card-container">
+            <div class="card">K</div>
+        </div>
+        <div class="bottom-row"></div>
+    </div>
+
+    <script src="../static/timer/timer.js" type="text/javascript"></script>
+
+    <script>
+        //change here what should be displayed !
+        const target="972";
+        const cards_char = ["A","B","C","D","E","F"];
+        const timeout = 0.5; //s
+
+        const time = 90;
+
+        setTimerDisplay(time);
+
+
+
+        //finding cards
+        var cards_div = $(".card").parent();
+        const target_div = cards_div[0];
+        cards_div.css("visibility","hidden");
+
+        const start = Math.floor((10-cards_char.length)/2);
+        const cards = [];
+        for (i=0; i<cards_char.length; i++) {
+            cards.push(cards_div[i+start+1]);
+        }
+
+        for (i=0; i<cards.length; i++) {
+            //$(cards[i]).css("visibility","visible");
+            $(cards[i]).children().html(cards_char[i])
+        }
+
+        const ms = 1000*timeout;
+        function show(card) {
+            //console.log(card);
+            $(card).css("visibility","visible");
+        }
+
+        function showAll() {
+            for (i = 0; i<cards.length; i++) {
+                setTimeout(show,i*ms,cards[i]);
+            }
+    
+            if (target!="") {
+                setTimeout(show,cards.length*ms,target_div);
+            }
+
+           setTimeout(function() {startTimer(time);},cards.length*ms);
+        }
+
+        
+
+        function onComplete() {
+            console.log("Time is up!");
+        }
+
+        setTimeout(showAll,2000);
+        
+        
+    </script>
+</body>
+</html>

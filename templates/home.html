@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic grid</title>
+
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.min.js" type="text/javascript"></script>
+
+    <style>
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .centered {
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+        }
+
+        .button-slot {
+            margin:10px;
+        }
+
+        .btn-pg {
+            width:300px;
+        }
+
+        .empty-space {
+            visibility: hidden;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="button-container centered">
+        <div class="button-slot">
+            <a href="/next" class="btn btn-outline-dark btn-lg btn-pg">{{first_button}}</a>
+        </div>
+        <div class="button-slot">
+            <a href="/parametres" class="btn btn-outline-dark btn-lg btn-pg">PARAMETRES</a>
+        </div>
+        <div class="button-slot">
+            <a class="btn btn-outline-dark btn-lg disabled empty-space btn-pg">EMPTY-SPACE</a>
+        </div>
+        <div class="button-slot">
+            <a href="/chiffres" class="btn btn-outline-dark btn-lg btn-pg">COUP DE CHIFFRES</a>
+        </div>
+        <div class="button-slot">
+            <a href="/lchoice" class="btn btn-outline-dark btn-lg btn-pg">COUP DE LETTRES</a>
+        </div>
+        <div class="button-slot">
+            <a href="/solver" class="btn btn-outline-dark disabled btn-pg">DUEL</a>
+        </div>
+        <div class="button-slot">
+            <a class="btn btn-outline-dark btn-lg disabled empty-space btn-pg">EMPTY-SPACE</a>
+        </div>
+        <div class="button-slot">
+            <a href="/solver" class="btn btn-outline-success disabled btn-pg">SOLVER</a>
+        </div>
+    </div>
+
+    <!--
+        HERE IS THE SCORE MODAL WHEN GAME COMES TO AN END
+    -->
+    <div id="myModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 id="solution-title" class="modal-title">La partie est terminée</h5>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onClick=hideModal()>OK</button> 
+                </div>
+                <div id="modal-content" class="modal-body">
+                    Le meilleur score qu'il était possible de faire (sans les bonus) est : <strong>{{max_score}}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const show_modal = {{show_modal}};
+        function hideModal() {
+            $("#myModal").modal('hide');
+        }
+
+        $(document).ready(function(){
+            if (show_modal) {
+                $("#myModal").modal('show');
+            }            
+        });
+    </script>
+</body>
