@@ -6,7 +6,6 @@ app = Flask(__name__)
 app.secret_key = "kangouroo"
 
 
-
 def set_param(display_delay:float=None,lettres_time:int=None,chiffres_time:int=None):
     if display_delay!=None:
         Chiffres.timeout = display_delay
@@ -17,5 +16,10 @@ def set_param(display_delay:float=None,lettres_time:int=None,chiffres_time:int=N
     
     if chiffres_time!=None:
         Chiffres.time = chiffres_time
-        
-set_param(1,45,90)
+
+    
+set_param(
+    display_delay = 1,
+    lettres_time = 45,
+    chiffres_time = 90
+)
