@@ -4,8 +4,8 @@ from flask import request
 
 from solver.chiffres import Chiffres
 from solver.lettres import Lettres
-from game import Game
-from game_msg import GameMsg
+from game_objects.game import Game
+from game_objects.game_msg import GameMsg
 
 ### GLOBALS ###
 GAME = Game()

@@ -5,7 +5,7 @@
 from time import sleep
 import webbrowser
 from threading import Thread
-from game_msg import GameMsg
+from game_objects.game_msg import GameMsg
 
 
 #open the webbrowser after 2s

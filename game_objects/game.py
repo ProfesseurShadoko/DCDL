@@ -1,7 +1,7 @@
 from solver.chiffres import Chiffres
 from solver.lettres import Lettres
 import random as rd
-from game_msg import GameMsg
+from .game_msg import GameMsg
 
 class CardSet:
     
