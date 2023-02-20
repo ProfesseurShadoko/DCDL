@@ -108,7 +108,7 @@ class CardSet:
 
 class Game:
     
-    duration=2
+    duration=16
     
     def __init__(self):
         GameMsg("new game initialized")

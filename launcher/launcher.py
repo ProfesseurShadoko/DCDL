@@ -1,5 +1,6 @@
 import os
 
-os.chdir('C:/Users/jonas/OneDrive/Bureau/DCDL/')
+#dont change anything here !
+os.chdir("###DEFAULT###")
 
-os.system("python.exe run.py")
+os.system("python run.py")
