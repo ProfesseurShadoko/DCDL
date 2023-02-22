@@ -31,4 +31,14 @@ function getCard(i) {
 
 function show(card) {
     $(card).css("visibility","visible");
+    var char = $(card).children().html();
+    speak(char);
+    console.log(char);
+}
+
+function speak(string) {
+    window.speechSynthesis.cancel();
+    text = new SpeechSynthesisUtterance(string);
+    text.rate=2;
+    window.speechSynthesis.speak(text);
 }

@@ -120,7 +120,7 @@
         function showAll() {
             for (i = 0; i<cards.length; i++) {
                 card = getCard(i);
-                setTimeout(n => show(getCard(n)),i*ms,i);
+                setTimeout(tmp => show(getCard(tmp)),i*ms,i);
             }
     
             if (target!="") {

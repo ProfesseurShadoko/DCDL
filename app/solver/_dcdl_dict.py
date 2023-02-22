@@ -81,7 +81,7 @@ class DicoTree:
 class Dico:
     
     _computed=None
-    _filename="solver/_dcdl.txt"
+    _filename="app/solver/_dcdl.txt"
     
     def __init__(self):
         if self._computed==None:

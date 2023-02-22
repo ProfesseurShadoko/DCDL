@@ -5,7 +5,7 @@
 from time import sleep
 import webbrowser
 from threading import Thread
-from game_objects.game_msg import GameMsg
+from app.game_objects.game_msg import GameMsg
 
 
 #open the webbrowser after 2s
@@ -21,8 +21,8 @@ thread.start()
 
 #let's run the app
 GameMsg("initializing")
-from views import *
-from app import app
+from app.views import *
+from app.app import app
 
 GameMsg("LAUNCHING APP")
 app.run(debug=False)

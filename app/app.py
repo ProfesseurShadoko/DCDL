@@ -1,6 +1,6 @@
 from flask import Flask
-from solver.chiffres import Chiffres
-from solver.lettres import Lettres
+from app.solver.chiffres import Chiffres
+from app.solver.lettres import Lettres
 
 app = Flask(__name__)
 app.secret_key = "kangouroo"

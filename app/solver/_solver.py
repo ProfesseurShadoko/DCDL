@@ -1,5 +1,5 @@
-from ._chiffre_solver import ChiffresSolver
-from ._letter_solver import LetterSolver
+from app.solver._chiffre_solver import ChiffresSolver
+from app.solver._letter_solver import LetterSolver
 
 
 def solve(*args):

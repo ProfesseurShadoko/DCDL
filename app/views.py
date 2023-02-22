@@ -1,15 +1,20 @@
-from app import app, set_param
+from app.app import app, set_param
 from flask import redirect, render_template
 from flask import request
 
-from solver.chiffres import Chiffres
-from solver.lettres import Lettres
-from game_objects.game import Game
-from game_objects.game_msg import GameMsg
+from app.solver.chiffres import Chiffres
+from app.solver.lettres import Lettres
+from app.game_objects.game import Game
+from app.game_objects.game_msg import GameMsg
 
 ### GLOBALS ###
 GAME = Game()
 VOWLS=5
+set_param(
+    display_delay=2,
+    lettres_time=45,
+    chiffres_time=90
+)
 
 ### HOME ###
 @app.route("/",methods=['GET','POST']) #handle POST from parametres

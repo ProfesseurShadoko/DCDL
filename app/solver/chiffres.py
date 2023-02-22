@@ -1,4 +1,4 @@
-from ._solver import solve
+from app.solver._solver import solve
 import random as rd
 
 class Chiffres:

@@ -1,4 +1,4 @@
-from ._dcdl_dict import Dico
+from app.solver._dcdl_dict import Dico
 
     
 class LetterSolver:
