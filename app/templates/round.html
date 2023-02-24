@@ -127,7 +127,7 @@
                 setTimeout(function() {show(target_div);},cards.length*ms);
             }
 
-           setTimeout(function() {startTimer(time);},(cards.length+2)*ms);
+           setTimeout(function() {startTimer(time);},(cards.length+1)*ms);
         }
 
         function onComplete() {
@@ -154,6 +154,35 @@
         }
 
         setTimeout(showAll,2000);
+
+        //show solution and then go to next on enter
+
+        var clickedOnce = false;
+
+        //show solution and leave page when clicking enter
+        function onEnter(event) {
+            if (event.key === "Enter") {
+                if (!clickedOnce) {
+                    clickedOnce=true;
+                    displaySolution();
+                } else {
+                    hideSolution();
+                    document.getElementById("button-2").click();
+                } 
+            }
+        }
+        document.addEventListener("keypress",onEnter);
+
+        //pause/unpause timer
+        function onSpace(event) {
+            if (event.code == "Space") {
+                event.preventDefault();
+                console.log("pause_unpause");
+                pause_unpause();
+            }
+        }
+
+        document.addEventListener("keypress",onSpace);
         
         
     </script>

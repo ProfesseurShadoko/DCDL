@@ -20,12 +20,11 @@ set_param(
 @app.route("/",methods=['GET','POST']) #handle POST from parametres
 def home():
     
-    
     #has the game ended ?
     global GAME
     previous_game = GAME #useless if GAME.count!=Game.duration
     show_modal="false"
-    if GAME.count==Game.duration:
+    if GAME.count>=Game.duration:
         #we reached the end of the game, we reset it, but we want to display results with a modal.
         previous_game = GAME
         show_modal = "true"
@@ -37,12 +36,15 @@ def home():
             c_time = int(request.form["c-time"])
             l_time = int(request.form["l-time"])
             d_time = float(request.form["d-time"])
+            g_time = int(request.form["g-time"])
+            g_time = max(GAME.count+1,g_time)
             
-            Lettres.time = l_time
-            Chiffres.time = c_time
-            Lettres.timeout = d_time
-            Chiffres.timeout = d_time
-            GameMsg(f"update param [lettres={l_time},chiffres={c_time}]")
+            set_param(
+                display_delay=d_time,
+                lettres_time=l_time,
+                chiffres_time=c_time,
+                game_duration=g_time
+            )
             
         if "reset" in request.form.keys():
             GAME = Game()
@@ -66,6 +68,7 @@ def param():
         "c-time":Chiffres.time,
         "l-time":Lettres.time,
         "d-time":Chiffres.timeout,
+        "g-time":Game.duration
     }
     return render_template("param.html",param=param)
 

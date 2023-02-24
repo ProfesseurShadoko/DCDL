@@ -32,6 +32,8 @@ function onComplete() {
     console.log("done !");
 }
 
+
+var timer_paused = false;
 /**
  * 
  * @param {int} seconds
@@ -43,6 +45,9 @@ function startTimer(seconds) {
     var over = false;
     
     function updateTimer() {
+        if (timer_paused) {
+            return;
+        }
         if (!over) {
             time = time-deltatime;
             if (time<0) {
@@ -57,6 +62,25 @@ function startTimer(seconds) {
     }
 
     setInterval(updateTimer,1000*deltatime);
+}
+
+function pauseTimer() {
+    timer_paused=true;
+}
+
+function resumeTimer() {
+    timer_paused=false;
+}
+
+/**
+ * pause the timer if it is running, resume if it isn't
+ */
+function pause_unpause() {
+    if (timer_paused) {
+        resumeTimer();
+    } else {
+        pauseTimer();
+    }
 }
 
 function triggerAlarm(repetitions) {

@@ -42,7 +42,7 @@
 <body>
     <div class="button-container centered">
         <div class="button-slot">
-            <a href="/next" class="btn btn-outline-dark btn-lg btn-pg">{{first_button}}</a>
+            <a href="/next" id="first_button" class="btn btn-outline-dark btn-lg btn-pg">{{first_button}}</a>
         </div>
         <div class="button-slot">
             <a href="/parametres" class="btn btn-outline-dark btn-lg btn-pg">PARAMETRES</a>
@@ -95,5 +95,21 @@
                 $("#myModal").modal('show');
             }            
         });
+
+        function clickOnEnter(event) {
+            if (event.key === "Enter") {
+                document.getElementById("first_button").click();
+                //$("#first_button").click(); //doesn't work!
+            }
+        }
+
+        function clickOnSpace(event) {
+            if (event.key === "Space") {
+            }
+        }
+
+        document.addEventListener("keypress",clickOnEnter);
+
+        
     </script>
 </body>
