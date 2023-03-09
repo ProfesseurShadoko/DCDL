@@ -2,8 +2,11 @@
 import os
 from app.game_objects.game_msg import GameMsg
 
+LOC = os.getcwd()+"\\launcher\\dist\\launcher.exe"
+
 if os.path.exists("launcher"):
-    GameMsg("launcher already set-up")
+    GameMsg("File already exists")
+    print(f"--> .exe file at: {LOC}")
     exit()
 
 os.mkdir("launcher")
@@ -25,6 +28,9 @@ os.chdir(os.getcwd()+"/launcher")
 GameMsg("create .exe file")
 os.system("pip install pyinstaller")
 os.system("pyinstaller --onefile -w launcher.py")
+GameMsg("File successfully created")
+
+print(f"--> .exe file at: {LOC}")
 
     
         
