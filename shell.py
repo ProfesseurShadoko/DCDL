@@ -1,6 +1,27 @@
 from app.solver._solver import solve
 from app.solver._dcdl_dict import Dico
 
+shell_help = """
+\033[95m
+
+Bienvenue dans la console DCDL ! Voici quelques commandes pour l'utiliser :
+
+>>> -q ou quit() : Quitter la console
+>>> -v <mot> : vérifier si le mot est dans le dictionnaire DCDL
+>>> -l <10 lettres> : résoud le coup de lettres correspondant
+>>> -c <cible> <nbr1> <nbr2> ... : résoud le compte correspondant
+
+Il est aussi possible de rentre directement un coup (de lettres ou de chiffres)
+
+>>> <10 lettres> : si les 10 lettres ne forment pas déjà un mot valide, résoud le coup de lettres correspondant
+>>> <cible> <nbr1> <nbr2> ... : résoud le compte correspondant
+>>> <mot> : vérifie si le mot est dans le dictionnaire DCDL
+
+Bon jeu !
+
+\033[0m
+"""
+
 class ExitShell(Exception):
     
     def __init__(self) -> None:
@@ -10,7 +31,7 @@ class Shell:
     
     @staticmethod
     def start():
-        print()
+        print(shell_help)
     
     @staticmethod
     def run():
