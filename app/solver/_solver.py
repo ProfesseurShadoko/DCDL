@@ -24,8 +24,8 @@ def solve(*args):
 if __name__=="__main__":
     from time import perf_counter
     
-    numbers = [75,2,5,8,25,3]
-    target = 478
+    numbers = [1,1,2,25,9,9]
+    target = 820
     letters = "natellogault"
     
     start = perf_counter()

@@ -25,13 +25,13 @@ class ChiffresSolver:
                 best_result=number
         best_solution=""
         
-        for n1 in numbers:
+        for n1 in numbers.copy(): # super important ! else the rest will modify the list and shuffle it, the result will then be wrong !
             if best_result==target:
                 if not ChiffresSolver.compute_best:
                     break
             numbers.remove(n1)
             
-            for n2 in numbers:
+            for n2 in numbers.copy():
                 if best_result==target:
                     if not ChiffresSolver.compute_best:
                         break
@@ -51,8 +51,9 @@ class ChiffresSolver:
                             solution=f"{n_max}{ope}{n_min}={new_card}\n"+solution
                             
                             if abs(result-target)<=abs(best_result-target):
-                                if abs(result-target)<abs(best_result-target) or len(solution) < len(best_solution):
+                                if abs(result-target) < abs(best_result-target) or len(solution) < len(best_solution):
                                     #une meilleure solution ou une solution plus courte
+                                    
                                     best_result=result
                                     best_solution=solution
                                     
@@ -61,8 +62,6 @@ class ChiffresSolver:
                 numbers.append(n2)
             numbers.append(n1)
         
-        numbers.sort()
-        #storing best solution
         ChiffresSolver.memory[ChiffresSolver.toString(numbers,target)]=best_result,best_solution
         
         return best_result,best_solution.replace("//","/")
@@ -78,13 +77,12 @@ class ChiffresSolver:
         return ChiffresSolver.solve_memoized(chiffres,target)
 
 if __name__=="__main__":
-    chiffres=[2,100,1,1,25,75]
-    target=202
-    ChiffresSolver.compute_best=False
+    
+    chiffres = [9,9,2,1,1,25]
+    target = 820
     print(ChiffresSolver.solve(chiffres,target)[1])
     
-    chiffres=[2,100,1,1,25,75]
-    ChiffresSolver.compute_best=True
-    print(ChiffresSolver.solve(chiffres,target)[1])
+    #what happens here ??
+    
     
     
