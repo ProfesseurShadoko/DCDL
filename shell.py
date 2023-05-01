@@ -1,8 +1,9 @@
 from app.solver._solver import solve
 from app.solver._dcdl_dict import Dico
+import os
 
 shell_help = """
-\033[95m
+\033[96m
 
 Bienvenue dans la console DCDL ! Voici quelques commandes pour l'utiliser :
 
@@ -31,6 +32,7 @@ class Shell:
     
     @staticmethod
     def start():
+        os.system("cls")
         print(shell_help)
     
     @staticmethod
@@ -45,7 +47,8 @@ class Shell:
     @staticmethod
     def loop():
         
-        msg = input("\n>>> ")
+        msg = input("\n\033[96m>>> ")
+        print("\033[0m",end="")
         
         if "quit()" in msg or "exit()" in msg:
             raise ExitShell()
@@ -76,7 +79,7 @@ class Shell:
                 score,solution = solve(nums[1:],nums[0])
                 
                 if score==nums[0]:
-                    print("Le compte est bon ! Voici comment il fallait procéder : ")
+                    print("Le compte est bon ! Voici comment il fallait procéder : \n")
                 else:
                     print(f"Il n'était pas possible de faire mieux que {score}. Voici comment il fallait procéder :\n")
                 
